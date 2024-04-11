@@ -8,6 +8,7 @@ number = list(map(int, input().split()))
 
 o = list(map(int, input().split()))
 LIMIT = math.pow(10, 10)
+
 plus, minus, mul, div = o[0], o[1], o[2], o[3]
 max_answer, min_answer = (-1) * LIMIT, LIMIT
 
