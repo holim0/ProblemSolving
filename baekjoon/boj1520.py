@@ -1,32 +1,32 @@
-from collections import deque
+import sys
+n, m = map(int, input().split())
 
-m, n = map(int, input().split())
-
-answer = 0
 mapp =[]
-for _ in range(m):
+
+for _ in range(n):
     row = list(map(int, input().split()))
     mapp.append(row)
 
+dp = [[-1 for _ in range(m)] for _ in range(n)]
 
-def find(x, y, visited):
-    global answer
-    
-    if x == m-1 and y == n-1:
-        answer+=1
-        return 
-    
+def find(x, y):
+    global dp
 
-    for a, b in [(0, 1), (1, 0), (-1, 0), (0, -1)]:
+    if x==n-1 and y==m-1:
+        return 1
+    
+    if dp[x][y] != -1:
+        return dp[x][y]
+    
+    route= 0
+    for a, b in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
         nx, ny = x+a, y+b
+        
+        if 0<=nx<n and 0<=ny<m and mapp[nx][ny]<mapp[x][y]:
+            route +=find(nx, ny)
+    
+    dp[x][y] = route
+    return dp[x][y]
 
-        if 0<=nx<m and 0<=ny<n and not visited[nx][ny] and mapp[nx][ny]<mapp[x][y]:
-            visited[nx][ny] = True
-            find(nx, ny, visited)
-            visited[nx][ny] = False
 
-visited = [[False for _ in range(n)] for _ in range(m)]
-
-find(0, 0, visited)
-
-print(answer)
+print(find(0, 0))
