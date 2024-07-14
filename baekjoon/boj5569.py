@@ -17,7 +17,6 @@ def getAnswer(cx, cy, curdir, isChangeDir):
     curCnt = 0
     
 
-    
     if cx+1<=h:
         if curdir == 0 or curdir == -1:
             curCnt+= getAnswer(cx+1, cy, 0, 0)
