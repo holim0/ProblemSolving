@@ -4,25 +4,21 @@
  */
 var findDifferentBinaryString = function (nums) {
   const n = nums.length;
-  const mapp = {};
+  const binarySet = new Set(nums);
+  let result = null;
 
-  for (let value of nums) {
-    mapp[value] = true;
-  }
-  const answer = [];
-  const dfs = (cur) => {
-    if (cur.length === n) {
-      if (!mapp[cur]) {
-        answer.push(cur);
+  const dfs = (current) => {
+    if (current.length === n) {
+      if (!binarySet.has(current)) {
+        result = current;
+        return true; // 찾으면 바로 종료
       }
-      return;
+      return false;
     }
 
-    dfs(cur + "0");
-    dfs(cur + "1");
+    return dfs(current + "0") || dfs(current + "1");
   };
 
   dfs("");
-
-  return answer[0];
+  return result;
 };
